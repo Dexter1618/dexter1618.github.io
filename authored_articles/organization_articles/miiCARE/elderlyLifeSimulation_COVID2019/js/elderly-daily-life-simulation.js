@@ -1,10 +1,10 @@
 
 document.body.style.zoom = "94%";
 
-var USER_SPEED = "slow";
+var USER_SPEED = "medium";
 
-var width = 750,
-	height = 750,
+var width = 800,
+	height = 700,
 	padding = 1,
 	maxRadius = 1;
 
@@ -18,34 +18,34 @@ var act_codes = [
 ];
 
 var time_notes = [
-	{ "start_minute": 1, "stop_minute": 60, "timestamp": "12 AM - 1 AM"},
-	{ "start_minute": 61, "stop_minute": 120, "timestamp": "1 AM - 2 AM"},
-	{ "start_minute": 121, "stop_minute": 180, "timestamp": "2 AM - 3 AM"},
-	{ "start_minute": 181, "stop_minute": 240, "timestamp": "3 AM - 4 AM"},
-	{ "start_minute": 241, "stop_minute": 300, "timestamp": "4 AM - 5 AM"},
-	{ "start_minute": 301, "stop_minute": 360, "timestamp": "5 AM - 6 AM"},
-	{ "start_minute": 361, "stop_minute": 420, "timestamp": "6 AM - 7 AM"},
-	{ "start_minute": 421, "stop_minute": 480, "timestamp": "7 AM - 8 AM"},
-	{ "start_minute": 481, "stop_minute": 540, "timestamp": "8 AM - 9 AM"},
-	{ "start_minute": 541, "stop_minute": 600, "timestamp": "9 AM - 10 AM"},
-	{ "start_minute": 601, "stop_minute": 660, "timestamp": "10 AM - 11 AM"},
-	{ "start_minute": 661, "stop_minute": 720, "timestamp": "11 AM - 12 PM"},
-	{ "start_minute": 721, "stop_minute": 780, "timestamp": "12 PM - 1 PM"},
-	{ "start_minute": 781, "stop_minute": 840, "timestamp": "1 PM - 2 PM"},
-	{ "start_minute": 841, "stop_minute": 900, "timestamp": "2 PM - 3 PM"},
-	{ "start_minute": 901, "stop_minute": 960, "timestamp": "3 PM - 4 PM"},
-	{ "start_minute": 961, "stop_minute": 1020, "timestamp": "4 PM - 5 PM"},
-	{ "start_minute": 1021, "stop_minute": 1080, "timestamp": "5 PM - 6 PM"},
-	{ "start_minute": 1081, "stop_minute": 1140, "timestamp": "6 PM - 7 PM"},
-	{ "start_minute": 1141, "stop_minute": 1200, "timestamp": "7 PM - 8 PM"},
-	{ "start_minute": 1201, "stop_minute": 1260, "timestamp": "8 PM - 9 PM"},
-	{ "start_minute": 1261, "stop_minute": 1320, "timestamp": "9 PM - 10 PM"},
-	{ "start_minute": 1321, "stop_minute": 1380, "timestamp": "10 PM - 11 PM"},
-	{ "start_minute": 1380, "stop_minute": 1441, "timestamp": "11 PM - 12 AM"}
+	{ "start_minute": 1, "stop_minute": 60, "timestamp": "12am - 1am"},
+	{ "start_minute": 61, "stop_minute": 120, "timestamp": "1am - 2am"},
+	{ "start_minute": 121, "stop_minute": 180, "timestamp": "2am - 3am"},
+	{ "start_minute": 181, "stop_minute": 240, "timestamp": "3am - 4am"},
+	{ "start_minute": 241, "stop_minute": 300, "timestamp": "4am - 5am"},
+	{ "start_minute": 301, "stop_minute": 360, "timestamp": "5am - 6am"},
+	{ "start_minute": 361, "stop_minute": 420, "timestamp": "6am - 7am"},
+	{ "start_minute": 421, "stop_minute": 480, "timestamp": "7am - 8am"},
+	{ "start_minute": 481, "stop_minute": 540, "timestamp": "8am- 9am"},
+	{ "start_minute": 541, "stop_minute": 600, "timestamp": "9am - 10am"},
+	{ "start_minute": 601, "stop_minute": 660, "timestamp": "10am - 11am"},
+	{ "start_minute": 661, "stop_minute": 720, "timestamp": "11am - 12pm"},
+	{ "start_minute": 721, "stop_minute": 780, "timestamp": "12pm - 1pm"},
+	{ "start_minute": 781, "stop_minute": 840, "timestamp": "1pm - 2pm"},
+	{ "start_minute": 841, "stop_minute": 900, "timestamp": "2pm - 3pm"},
+	{ "start_minute": 901, "stop_minute": 960, "timestamp": "3pm - 4pm"},
+	{ "start_minute": 961, "stop_minute": 1020, "timestamp": "4pm - 5pm"},
+	{ "start_minute": 1021, "stop_minute": 1080, "timestamp": "5pm - 6pm"},
+	{ "start_minute": 1081, "stop_minute": 1140, "timestamp": "6pm - 7pm"},
+	{ "start_minute": 1141, "stop_minute": 1200, "timestamp": "7pm - 8pm"},
+	{ "start_minute": 1201, "stop_minute": 1260, "timestamp": "8pm - 9pm"},
+	{ "start_minute": 1261, "stop_minute": 1320, "timestamp": "9pm - 10pm"},
+	{ "start_minute": 1321, "stop_minute": 1380, "timestamp": "10pm - 11pm"},
+	{ "start_minute": 1380, "stop_minute": 1441, "timestamp": "11pm - 12am"}
 ];
 
 
-var speeds = { "slow": 200, "medium": 130, "fast": 85};
+var speeds = { "slow": 180, "medium": 130, "fast": 75};
 var sched_objs = [], curr_minute = 0, notes_index = 0;
 
 
@@ -62,7 +62,7 @@ act_codes.forEach(function (code, i)
 		foci[code.index] = center_pt;
 	} else {
 		var theta = 2 * Math.PI / (act_codes.length - 1);
-		foci[code.index] = { x: 225 * Math.cos((i - 1) * theta) + 380, y: 225 * Math.sin((i - 1) * theta) + 365 };
+		foci[code.index] = { x: 200 * Math.cos((i - 1) * theta) + 380, y: 200 * Math.sin((i - 1) * theta) + 365 };
 	}
 });
 
@@ -71,7 +71,7 @@ act_codes.forEach(function (code, i)
 var svg = d3.select("#chart").append("svg")
 	.attr("width", width)
 	.attr("height", height)
-	.attr('position', 'absolute')
+	.attr('position', 'relative')
 	.attr('left', '150px')
 	.attr('top', '190px');
 
@@ -151,20 +151,24 @@ d3.tsv("data/ROUTINE_SIMULATION_JAVASCRIPT_BACKEND.tsv", function (error, data)
 				var theta = 2 * Math.PI / (act_codes.length - 1);
 				return 300 * Math.sin((i - 1) * theta) + 365;
 			}
-
 		});
 
+	//if ()
+
+	
 	label.append("tspan")
 		.attr("x", function () { return d3.select(this.parentNode).attr("x"); })
-		// .attr("dy", "1.3em")
+		//.attr("dy", "1.3em")
 		.attr("text-anchor", "middle")
-		.text(function (d) {
-			return d.short;
-		});
+		.style("font-size", "150%")
+		//.attr("style", "outline: thin solid black;")
+		.text(function (d) {return d.short;});
+	
 	label.append("tspan")
 		.attr("dy", "1.3em")
 		.attr("x", function () { return d3.select(this.parentNode).attr("x"); })
 		.attr("text-anchor", "middle")
+		.style("font-size", "120%")
 		.attr("class", "actpct")
 		.text(function (d) {
 			return act_counts[d.index] + "%";
@@ -217,15 +221,15 @@ d3.tsv("data/ROUTINE_SIMULATION_JAVASCRIPT_BACKEND.tsv", function (error, data)
 		
 		if (true_minute == time_notes[notes_index].start_minute) {
 			d3.select("#timestamp")
-				.style("color", "#0c27f2")
-				.style("text-align", "left")
-				.style("font-size", "150%")
+				.style("color", "#808080")
+				.style("text-align", "center")
+				.style("font-size", "200%")
 				.style("font-family", "segoe ui")
 				.text(time_notes[notes_index].timestamp)
 				.transition()
 				.duration(500)
 				.style("text-align", "center")
-				.style("color", "#0c27f2");
+				.style("color", "#808080");
 		}
 
 		if (true_minute == time_notes[notes_index].stop_minute) 
